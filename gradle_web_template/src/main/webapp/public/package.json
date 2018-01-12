@@ -1,0 +1,24 @@
+{
+  "name": "company-webconsole",
+  "version": "1.0.0",
+  "description": "Company webconsole project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "webconsole"
+  ],
+  "author": "Lijingtao",
+  "license": "ISC",
+  "devDependencies": {
+    "bootstrap": "^3.3.7",
+    "gulp": "^3.9.1",
+    "gulp-clean-css": "^3.9.0",
+    "gulp-less": "^3.3.2",
+    "gulp-notify": "^3.0.0",
+    "gulp-plumber": "^1.1.0",
+    "gulp-rename": "^1.2.2",
+    "jquery": "^3.2.1"
+  }
+}

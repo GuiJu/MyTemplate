@@ -1,0 +1,59 @@
+group 'com.unicorn.core'
+version '1.0-SNAPSHOT'
+
+task wrapper(type: Wrapper) {
+  gradleVersion = '3.3'
+  distributionUrl = "https://services.gradle.org/distributions/gradle-$gradleVersion-all.zip"
+}
+
+buildscript{
+    repositories{
+        jcenter()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+        maven {
+            url "http://nexus.buptnsrc.com/content/repositories/gradle-plugin"
+        }
+    }
+    dependencies{
+        classpath "org.akhikhl.gretty:gretty:1.4.0"
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'org.akhikhl.gretty'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    jcenter()
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+    maven { url "http://repo.maven.apache.org/maven2" }
+    maven { url "http://nexus.buptnsrc.com/content/groups/public" }
+}
+
+dependencies {
+    compile group: 'org.springframework', name: 'spring-webmvc', version: '4.3.10.RELEASE'
+    compile group: 'org.springframework', name: 'spring-context', version: '4.3.10.RELEASE'
+    compile group: 'org.aspectj', name: 'aspectjrt', version: '1.8.10'
+    compile group: 'org.aspectj', name: 'aspectjweaver', version: '1.8.10'
+    providedCompile 'javax.servlet:javax.servlet-api:3.0.1'
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.6'
+
+    testCompile group: 'org.springframework', name: 'spring-test', version: '4.3.10.RELEASE'
+    testCompile 'junit:junit:4.12'
+    testCompile group: 'javax.servlet', name: 'javax.servlet-api', version: '3.1.0'
+    testCompile "org.mockito:mockito-core:2.0.57-beta"
+}
+
+gretty {
+    port = 9001
+    contextPath = '/'
+    jvmArgs = [
+            '-Dwork.dir=$DIR',
+    ]
+}

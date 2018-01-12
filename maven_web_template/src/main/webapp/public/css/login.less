@@ -1,0 +1,173 @@
+html, body, div#app {
+    height: 100%;
+}
+
+button.btn-custom {
+    border: none;
+    border-radius: 4px;
+    width: 100%;
+    height: 37px;
+    background: linear-gradient(to bottom left, #AF94FA, #778CFB, #368AFB, #21A0FF);
+    color: white;
+    transition: .3s;
+    opacity: .8;
+
+    &:hover {
+        color: white;
+        opacity: 1;
+    }
+}
+
+a.btn-custom {
+    border: none;
+    border-radius: 4px;
+    line-height: 24px;
+    width: 80%;
+    height: 37px;
+    background: linear-gradient(to bottom left, #AF94FA, #778CFB, #368AFB, #21A0FF);
+    color: white;
+    transition: .3s;
+    opacity: .8;
+
+    &:hover {
+        color: white;
+        opacity: 1;
+    }
+}
+
+div.loginPage {
+    height: 100%;
+    background-color: #232C33;
+
+    div.main-content {
+        padding: 0 30%;
+
+        div.login-wrapper {
+            padding: 10px 45px 30px 45px;
+            margin-top: 46%;
+            border: 1px solid #20262F;
+            border-radius: 8px;
+            box-shadow: 1px 1px 20px #20262F;
+            background: linear-gradient(-145deg, #191E27, #20272E, #2E3B41);
+            width: 100%;
+            color: white;
+            transition: .2s;
+
+            h3 {
+                font-size: 20px;
+                margin-bottom: 0;
+                text-align: center;
+
+                &.forget-ps-header {
+                    margin-bottom: 19px;
+                }
+
+                &.reset-ps-header {
+                    margin-bottom: 19px;
+                }
+            }
+
+            h4 {
+                margin-bottom: 15px;
+                color: #576065;
+                font-size: 14px;
+                text-align: center;
+            }
+
+            p.question-get {
+                color: #576065;
+                font-size: 14px;
+            }
+
+            form {
+                span.input-icon {
+                    i {
+                        float: right;
+                        position: relative;
+                        bottom: 22px;
+                        right: 15px;
+                    }
+                }
+
+                input {
+                    color: white;
+                    background: inherit;
+                    border: none;
+                    border-bottom: 1px solid #424B52;
+                    transition: .2s;
+
+                    &:hover {
+                        border-bottom: 1px solid #778CFB;
+                    }
+
+                    &:focus {
+                        border: none;
+                        animation-name: input-hover;
+                        animation-duration: 5s;
+                        animation-iteration-count: infinite;
+                    }
+
+                    &#fUserName, &#rPasswordAgain {
+                        margin-bottom: 20px;
+                    }
+                }
+
+                div.forget-ps-href {
+                    text-align: right;
+                    margin-bottom: 13px;
+
+                    a.forget-ps {
+                        text-decoration: none;
+                        color: #576065;
+                        transition: .2s;
+
+                        &:hover {
+                            color: #368AFB;
+                        }
+                    }
+                }
+            }
+
+            div.secQueNotSet {
+                margin: 12px 0 0 0;
+                padding: 0;
+                text-align: center;
+                border: none;
+                box-shadow: none;
+                background: initial;
+                color: white;
+
+                span {
+                    margin-bottom: 11px;
+                    display: inline-block;
+                }
+            }
+        }
+
+        div.wrapper-forget-ps {
+            padding: 2px 40px 30px 40px;
+        }
+    }
+}
+
+@keyframes input-hover {
+    0% {
+        border-bottom: 1px solid #AF94FA;
+    }
+
+    25% {
+        border-bottom: 1px solid #778CFB;
+    }
+
+    50% {
+        border-bottom: 1px solid #368AFB;
+    }
+
+    75% {
+        border-bottom: 1px solid #21A0FF;
+    }
+
+    100% {
+        border-bottom: 1px solid #AF94FA;
+    }
+}
