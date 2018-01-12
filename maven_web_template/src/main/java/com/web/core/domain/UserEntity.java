@@ -6,17 +6,18 @@ import java.sql.Timestamp;
 /**
  * @author jutal
  * @date 18-1-12
+ * @file
  */
 @Entity
 @Table(name = "user", schema = "webconsole", catalog = "")
 public class UserEntity {
     private int id;
-    private String email;
     private String password;
     private String username;
     private Timestamp updateTime;
     private Timestamp createTime;
     private int type;
+    private String userId;
 
     @Id
     @Column(name = "id")
@@ -26,16 +27,6 @@ public class UserEntity {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    @Basic
-    @Column(name = "email")
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     @Basic
@@ -88,6 +79,16 @@ public class UserEntity {
         this.type = type;
     }
 
+    @Basic
+    @Column(name = "userId")
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -97,11 +98,11 @@ public class UserEntity {
 
         if (id != that.id) return false;
         if (type != that.type) return false;
-        if (email != null ? !email.equals(that.email) : that.email != null) return false;
         if (password != null ? !password.equals(that.password) : that.password != null) return false;
         if (username != null ? !username.equals(that.username) : that.username != null) return false;
         if (updateTime != null ? !updateTime.equals(that.updateTime) : that.updateTime != null) return false;
         if (createTime != null ? !createTime.equals(that.createTime) : that.createTime != null) return false;
+        if (userId != null ? !userId.equals(that.userId) : that.userId != null) return false;
 
         return true;
     }
@@ -109,12 +110,12 @@ public class UserEntity {
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
         result = 31 * result + (username != null ? username.hashCode() : 0);
         result = 31 * result + (updateTime != null ? updateTime.hashCode() : 0);
         result = 31 * result + (createTime != null ? createTime.hashCode() : 0);
         result = 31 * result + type;
+        result = 31 * result + (userId != null ? userId.hashCode() : 0);
         return result;
     }
 }

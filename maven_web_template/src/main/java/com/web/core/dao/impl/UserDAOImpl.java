@@ -2,10 +2,13 @@ package com.web.core.dao.impl;
 
 import com.web.core.dao.UserDAO;
 import com.web.core.domain.UserEntity;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * @author jutal
@@ -33,5 +36,19 @@ public class UserDAOImpl implements UserDAO {
 
         Session session = getSession();
         return (UserEntity) session.get(UserEntity.class, id);
+    }
+
+    @Override
+    public UserEntity selectUserByUsernameAndPassword(String username, String password) {
+        Session session = getSession();
+        String hql = "FROM UserEntity as user where user.userId = '" + username + "' and user.password = '" + password + "'";
+        Query query = session.createQuery(hql);
+        List list = query.list();
+
+        if (list.size() == 0) {
+            return null;
+        } else {
+            return (UserEntity) list.get(0);
+        }
     }
 }

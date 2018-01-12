@@ -24,7 +24,7 @@ public class HomeController {
     }
 
     @RequestMapping("/")
-    public String index(HttpServletRequest request) throws IOException {
+    public String home(HttpServletRequest request) throws IOException {
         return "login";
     }
 
@@ -33,8 +33,14 @@ public class HomeController {
         return "login";
     }
 
+    @RequestMapping("/index")
+    public String index(HttpServletRequest request) throws IOException {
+        return "index";
+    }
+
     @RequestMapping("/error")
     public String error(HttpServletRequest request) throws IOException {
         return "error";
     }
+
 }

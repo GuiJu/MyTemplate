@@ -1,14 +1,57 @@
 /**
-  * @author jutal
-  * @date 18-1-12
-  * @file
-  */
+ * @author jutal
+ * @date 18-1-12
+ * @file
+ */
 import React, { Component } from 'react';
+import HttpService from '../util/HttpService';
 import '../../css/login.css';
 
 class Login extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      username: '',
+      password: ''
+    };
+
+    this.handleUsernameChange = this.handleUsernameChange.bind(this);
+    this.handlePasswordChange = this.handlePasswordChange.bind(this);
+    this.handleLogin = this.handleLogin.bind(this);
+  }
+
+  // 用户名输入框控制
+  handleUsernameChange(event) {
+    this.setState({
+      username: event.target.value
+    })
+  }
+
+  // 密码输入框控制
+  handlePasswordChange(event) {
+    this.setState({
+      password: event.target.value
+    })
+  }
+
+  // 登录
+  handleLogin() {
+    HttpService.http({
+      url: "http://localhost:8080/user/userLogin",
+      type: "POST",
+      dataType: "json",
+      data: {
+        username: this.state.username,
+        password: this.state.password
+      }
+    }).then(
+      function (result) {
+        console.log(JSON.stringify(result));
+      },
+      function () {
+
+      })
   }
 
   render() {
@@ -23,24 +66,25 @@ class Login extends Component {
               <form id="login" className="ng-pristine ng-valid" role="form">
                 <div className="form-group">
                   <label className="control-label">登录名：</label>
-                  <input type="text" className="form-control" id="userName"
+                  <input value={this.state.username} onChange={this.handleUsernameChange} type="text"
+                         className="form-control" id="username"
                          placeholder="请输入邮箱或手机号"/>
                 </div>
                 <div className="form-group">
                   <label className="control-label">密码：</label>
-                  <input type="password" className="form-control" id="password"
+                  <input value={this.state.password} onChange={this.handlePasswordChange} type="password"
+                         className="form-control" id="password"
                          placeholder="请输入密码"/>
                 </div>
                 <div className="forget-ps-href">
                   <a className="forget-ps" href="/forgetPs.html">忘记密码？</a>
                 </div>
-                <button className="btn btn-custom">登录</button>
+                <button className="btn btn-custom" onClick={this.handleLogin}>登录</button>
               </form>
             </div>
           </div>
         </div>
       </div>
-
     )
   }
 }

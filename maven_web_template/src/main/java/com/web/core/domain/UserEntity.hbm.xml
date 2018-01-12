@@ -6,11 +6,11 @@
 
     <class name="com.web.core.domain.UserEntity" table="user" schema="webconsole">
         <id name="id" column="id"/>
-        <property name="email" column="email"/>
         <property name="password" column="password"/>
         <property name="username" column="username"/>
         <property name="updateTime" column="update_time"/>
         <property name="createTime" column="create_time"/>
         <property name="type" column="type"/>
+        <property name="userId" column="userId"/>
     </class>
 </hibernate-mapping>

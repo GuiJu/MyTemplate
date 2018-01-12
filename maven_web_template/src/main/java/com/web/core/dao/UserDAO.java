@@ -15,4 +15,11 @@ public interface UserDAO {
      */
     UserEntity selectUserById(int id);
 
+    /**
+     * 根据username和password获得用户
+     * @param username 用户名
+     * @param password 密码
+     * @return User对象
+     */
+    UserEntity selectUserByUsernameAndPassword(String username, String password);
 }
