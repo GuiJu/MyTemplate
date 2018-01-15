@@ -1,21 +1,26 @@
 /**
  * @file app组件
  */
-import React, { Component } from 'react';
+import React from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import Login from '../login/login';
+import ForgetPs from '../login/forgetPs';
+import ForgetPsNext from '../login/forgetPsNext';
+import ResetPs from '../login/resetPs';
 import '../../css/login.css';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return (
+const App = () => {
+  return (
+    <Router>
       <div>
-        {this.props.children}
+        <Route exact path='/' component={Login}/>
+        <Route path='/forgetPs' component={ForgetPs}/>
+        <Route path='/forgetPsNext' component={ForgetPsNext}/>
+        <Route path='/resetPs' component={ResetPs}/>
       </div>
-    );
-  };
-}
+    </Router>
+  );
+};
+
 
 export default App;

@@ -35,6 +35,7 @@ module.exports = {
         use: {
           loader: 'babel-loader'
           // 此处的options: {...} 单独提取到了.babelrc中
+          // 其中的transform-class-properties用于支持static = {}写在class中的ES7写法
         }
       },
       {

@@ -4,6 +4,7 @@
  * @file
  */
 import React, { Component } from 'react';
+import {Link} from 'react-router-dom';
 import HttpService from '../util/HttpService';
 import '../../css/login.css';
 
@@ -46,10 +47,12 @@ class Login extends Component {
         password: this.state.password
       }
     }).then(
-      function (result) {
-        console.log(JSON.stringify(result));
+      function (data) {
+        if (data.result === 'success') {
+
+        }
       },
-      function () {
+      function (err) {
 
       })
   }
@@ -77,7 +80,7 @@ class Login extends Component {
                          placeholder="请输入密码"/>
                 </div>
                 <div className="forget-ps-href">
-                  <a className="forget-ps" href="/forgetPs.html">忘记密码？</a>
+                  <Link to="/forgetPs" className="forget-ps">忘记密码？</Link>
                 </div>
                 <button className="btn btn-custom" onClick={this.handleLogin}>登录</button>
               </form>

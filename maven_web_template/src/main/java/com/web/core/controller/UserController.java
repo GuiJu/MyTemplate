@@ -43,7 +43,28 @@ public class UserController {
         String password = request.get("password");
         Map<String, String> result = new HashMap<String, String>(16);
 
-        if (userService.isUserExist(username, password)) {
+        if (userService.validateUser(username, password)) {
+            result.put("result", SUCCESS);
+            return objectMapper.writeValueAsString(result);
+        } else {
+            result.put("result", ERROR);
+            return objectMapper.writeValueAsString(result);
+        }
+    }
+
+
+    /**
+     * 找回密码用,检测是否用户名存在
+     * @param request http请求
+     * @return response
+     */
+    @RequestMapping(value = "/user/checkUsername", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public String checkUsername(@RequestBody Map<String, String> request) throws JsonProcessingException {
+        String username = request.get("username");
+        Map<String, String> result = new HashMap<String, String>(16);
+
+        if (userService.isUsernameExist(username)) {
             result.put("result", SUCCESS);
             return objectMapper.writeValueAsString(result);
         } else {

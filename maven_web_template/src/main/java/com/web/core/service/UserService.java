@@ -33,7 +33,16 @@ public class UserService {
      * @param password password
      * @return true或false
      */
-    public boolean isUserExist(String username, String password) {
+    public boolean validateUser(String username, String password) {
         return userDAO.selectUserByUsernameAndPassword(username, password) != null;
+    }
+
+    /**
+     * 判断用户名是否存在
+     * @param username 用户名
+     * @return true或false
+     */
+    public boolean isUsernameExist(String username) {
+        return userDAO.selectUserByUsername(username) != null;
     }
 }

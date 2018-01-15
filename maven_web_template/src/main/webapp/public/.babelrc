@@ -21,7 +21,8 @@
               }
             ]
           }
-        ]
+        ],
+        ["transform-class-properties"]
       ]
     }
   }
