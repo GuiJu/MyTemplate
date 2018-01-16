@@ -2,6 +2,7 @@ package com.web.core.dao.impl;
 
 import com.web.core.dao.UserDAO;
 import com.web.core.domain.UserEntity;
+import com.web.core.domain.UserSecQuestionEntity;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -10,6 +11,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * @author author
+ */
 @Repository
 public class UserDAOImpl implements UserDAO {
 
@@ -34,9 +38,29 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public UserEntity selectUserByUsernameAndPassword(String username, String password) {
+    public UserEntity selectUserByUserId(String userId) {
         Session session = getSession();
-        String hql = "FROM UserEntity as user where user.userId = '" + username + "' and user.password = '" + password + "'";
+        String hql = "FROM UserEntity as user where user.userId = '" + userId + "'";
+        Query query = session.createQuery(hql);
+        List list = query.list();
+
+        return (UserEntity) list.get(0);
+    }
+
+    @Override
+    public UserSecQuestionEntity selectUserSecByUserId(String userId) {
+        Session session = getSession();
+        String hql = "FROM UserSecQuestionEntity as userSec where userSec.userId = '" + userId + "'";
+        Query query = session.createQuery(hql);
+        List list = query.list();
+
+        return (UserSecQuestionEntity) list.get(0);
+    }
+
+    @Override
+    public UserEntity selectUserByUserIdAndPassword(String userId, String password) {
+        Session session = getSession();
+        String hql = "FROM UserEntity as user where user.userId = '" + userId + "' and user.password = '" + password + "'";
         Query query = session.createQuery(hql);
         List list = query.list();
 
@@ -48,18 +72,12 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public UserEntity selectUserByUsername(String username) {
+    public boolean updateUserPassword(String userId, String newPassword) {
         Session session = getSession();
-        String hql = "FROM UserEntity as user where user.userId = '" + username + "'";
-        Query query = session.createQuery(hql);
-        List list = query.list();
+        UserEntity userEntity = selectUserByUserId(userId);
+        userEntity.setPassword(newPassword);
 
-        if (list.size() == 0) {
-            return null;
-        } else {
-            return (UserEntity) list.get(0);
-        }
+        session.merge(userEntity);
+        return true;
     }
-
-
 }

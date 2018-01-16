@@ -20,6 +20,13 @@ class Login extends Component {
     this.handleUsernameChange = this.handleUsernameChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
+
+    // 重置localStorage
+    let userInfo = {
+      isChecked: false,
+      isAnswered: false
+    };
+    localStorage.setItem('userInfo', JSON.stringify(userInfo));
   }
 
   // 用户名输入框控制
@@ -46,15 +53,7 @@ class Login extends Component {
         username: this.state.username,
         password: this.state.password
       }
-    }).then(
-      function (data) {
-        if (data.result === 'success') {
-
-        }
-      },
-      function (err) {
-
-      })
+    })
   }
 
   render() {

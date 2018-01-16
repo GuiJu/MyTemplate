@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,7 +23,6 @@ public class UserController {
     private final String ERROR = "error";
 
     private static ObjectMapper objectMapper = new ObjectMapper();
-
     private UserService userService;
 
     @Autowired
@@ -52,9 +52,9 @@ public class UserController {
         }
     }
 
-
     /**
      * 找回密码用,检测是否用户名存在
+     *
      * @param request http请求
      * @return response
      */
@@ -72,4 +72,66 @@ public class UserController {
             return objectMapper.writeValueAsString(result);
         }
     }
+
+    /**
+     * 获得用户密保问题
+     *
+     * @param request http请求
+     * @return response
+     */
+    @RequestMapping(value = "/user/getSecQuestion", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public String getSecQuestion(HttpServletRequest request) throws JsonProcessingException {
+        String userId = request.getParameter("userId");
+        Map<String, String> result = new HashMap<String, String>(16);
+        String secQuestion = userService.getSecQuestion(userId);
+
+        result.put("result", SUCCESS);
+        result.put("secQuestion", secQuestion);
+
+        return objectMapper.writeValueAsString(result);
+    }
+
+    /**
+     * 验证密保问题答案
+     * @param request http请求
+     * @return response
+     */
+    @RequestMapping(value = "/user/verifySecAnswer", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public String verifySecAnswer(@RequestBody Map<String, String> request) throws JsonProcessingException {
+        String userId = request.get("userId");
+        String answer = request.get("answer");
+        Map<String, String> result = new HashMap<String, String>(16);
+
+        if (userService.verifySecAnswer(userId, answer)) {
+            result.put("result", SUCCESS);
+        } else {
+            result.put("result", ERROR);
+        }
+
+        return objectMapper.writeValueAsString(result);
+    }
+
+    /**
+     * 重置密码
+     * @param request http请求
+     * @return response
+     */
+    @RequestMapping(value = "/user/resetPassword", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public String resetPassword(@RequestBody Map<String, String> request) throws JsonProcessingException {
+        String userId = request.get("userId");
+        String password = request.get("password");
+        Map<String, String> result = new HashMap<String, String>(16);
+
+        if (userService.resetPassword(userId, password)) {
+            result.put("result", SUCCESS);
+        } else {
+            result.put("result", ERROR);
+        }
+
+        return objectMapper.writeValueAsString(result);
+    }
+
 }

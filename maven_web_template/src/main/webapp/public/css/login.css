@@ -68,8 +68,11 @@ div.loginPage div.main-content div.login-wrapper h4 {
   text-align: center;
 }
 div.loginPage div.main-content div.login-wrapper p.question-get {
-  color: #576065;
-  font-size: 14px;
+  color: gray;
+  font-size: 15px;
+}
+div.loginPage div.main-content div.login-wrapper p.prompt {
+  color: rgba(255, 0, 0, 0.95);
 }
 div.loginPage div.main-content div.login-wrapper form span.input-icon i {
   float: right;
@@ -80,7 +83,9 @@ div.loginPage div.main-content div.login-wrapper form span.input-icon i {
 div.loginPage div.main-content div.login-wrapper form input {
   color: white;
   background: inherit;
+  border-radius: 0 !important;
   border: none;
+  box-shadow: none;
   border-bottom: 1px solid #424B52;
   transition: .2s;
 }
@@ -95,7 +100,7 @@ div.loginPage div.main-content div.login-wrapper form input:focus {
 }
 div.loginPage div.main-content div.login-wrapper form input#fUserName,
 div.loginPage div.main-content div.login-wrapper form input#rPasswordAgain {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 div.loginPage div.main-content div.login-wrapper form div.forget-ps-href {
   text-align: right;

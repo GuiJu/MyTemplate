@@ -3,7 +3,6 @@
  */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router';
 import HttpService from '../util/HttpService';
 import '../../css/login.css';
 
@@ -19,7 +18,8 @@ export default class ForgetPs extends Component {
     super(props);
 
     this.state = {
-      username: ''
+      username: '',
+      prompt: ''
     };
 
     this.handleUsernameChange = this.handleUsernameChange.bind(this);
@@ -28,14 +28,14 @@ export default class ForgetPs extends Component {
 
   handleUsernameChange(event) {
     this.setState({
-      username: event.target.value
+      username: event.target.value,
+      prompt: ''
     })
   }
 
   handleCheckUsername(e) {
-    e.preventDefault();
+    const {match, location, history} = this.props;
 
-    const { match, location, history } = this.props;
     HttpService.http({
       url: 'http://localhost:8080/user/checkUsername',
       type: 'POST',
@@ -43,14 +43,29 @@ export default class ForgetPs extends Component {
       data: {
         username: this.state.username,
       }
-    }).then(function (data) {
-      if (data.result === 'success') {
-        // 验证成功则跳转到用户名密码重置页面
-        history.push('/resetPs');
-      }
-    }, function (err) {
+    }).then(
+      function (data) {
+        if (data.result === 'success') {
+          // 向localStorage加入验证数据
+          let userInfo = {
+            userId: this.state.username,
+            isChecked: true
+          };
+          localStorage.setItem('userInfo', JSON.stringify(userInfo));
 
-    })
+          // 验证成功则跳转到用户名密码重置页面
+          history.push('/forgetPsNext');
+        } else {
+          this.setState({
+            prompt: '*用户名输入错误或不存在'
+          })
+        }
+      }.bind(this),
+      function (err) {
+        this.setState({
+          prompt: '*用户名输入错误或不存在'
+        })
+      }.bind(this))
   }
 
   render() {
@@ -68,7 +83,7 @@ export default class ForgetPs extends Component {
                          placeholder="请输入登录名"/>
                 </div>
                 <div className="text-align-left">
-                  <p className="psFirst red"> </p>
+                  <p className="prompt">{this.state.prompt}</p>
                 </div>
                 <div className="text-align-center">
                   {/* 要使用type="button"防止其表单提交等默认方法执行 */}

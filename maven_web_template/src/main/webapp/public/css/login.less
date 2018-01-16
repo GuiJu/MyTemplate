@@ -74,9 +74,14 @@ div.loginPage {
                 text-align: center;
             }
 
-            p.question-get {
-                color: #576065;
-                font-size: 14px;
+            p {
+                &.question-get {
+                    color: gray;
+                    font-size: 15px;
+                }
+                &.prompt {
+                    color: rgba(255, 0, 0, .95);
+                }
             }
 
             form {
@@ -92,7 +97,9 @@ div.loginPage {
                 input {
                     color: white;
                     background: inherit;
+                    border-radius: 0 !important;
                     border: none;
+                    box-shadow: none;
                     border-bottom: 1px solid #424B52;
                     transition: .2s;
 
@@ -108,7 +115,7 @@ div.loginPage {
                     }
 
                     &#fUserName, &#rPasswordAgain {
-                        margin-bottom: 20px;
+                        margin-bottom: 10px;
                     }
                 }
 
