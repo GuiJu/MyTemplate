@@ -2,6 +2,7 @@
  * @file ForgetPs页面组件
  */
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import HttpService from '../util/HttpService';
 import '../../css/login.css';
@@ -73,7 +74,8 @@ export default class ForgetPs extends Component {
       <div className="loginPage">
         <div className="container">
           <div className="main-content">
-            <div className="login-wrapper wrapper-forget-ps pull-right">
+            <div className="login-wrapper wrapper-forget-ps">
+              <Link to='/' className="return-link" title="点击返回主页"><i className="fa fa-angle-double-left"> </i></Link>
               <h3 className="forget-ps-header">找回密码</h3>
               <form className="ng-pristine ng-valid" role="form">
                 <div className="form-group">

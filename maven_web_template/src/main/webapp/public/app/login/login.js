@@ -101,7 +101,7 @@ class Login extends Component {
           <div className="main-content">
             <div className="login-wrapper">
               <h3>用户登录</h3>
-              <h4 className="login">请输入用户名和密码</h4>
+              <h4>请输入用户名和密码</h4>
               <form id="login" className="ng-pristine ng-valid" role="form">
                 <div className="form-group">
                   <label className="control-label">登录名：</label>

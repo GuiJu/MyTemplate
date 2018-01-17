@@ -1,3 +1,5 @@
+@hover-blue: #368AFB;
+
 html, body, div#app {
     height: 100%;
 }
@@ -57,6 +59,7 @@ div.loginPage {
         padding: 0 30%;
 
         div.login-wrapper {
+            position: relative;
             padding: 8px 45px 32px 45px;
             margin-top: 46%;
             border: 1px solid #20262F;
@@ -66,6 +69,21 @@ div.loginPage {
             width: 100%;
             color: white;
             transition: .2s;
+
+            .return-link {
+                i {
+                    font-size: 30px;
+                    position: absolute;
+                    left: 28px;
+                    top: 13px;
+                    color: white;
+                    transition: .2s;
+
+                    &:hover {
+                        color: @hover-blue;
+                    }
+                }
+            }
 
             h3 {
                 font-size: 20px;
@@ -150,7 +168,7 @@ div.loginPage {
                         transition: .2s;
 
                         &:hover {
-                            color: #368AFB;
+                            color: @hover-blue;
                         }
                     }
                 }

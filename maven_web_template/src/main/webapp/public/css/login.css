@@ -53,6 +53,7 @@ div.loginPage div.main-content {
   padding: 0 30%;
 }
 div.loginPage div.main-content div.login-wrapper {
+  position: relative;
   padding: 8px 45px 32px 45px;
   margin-top: 46%;
   border: 1px solid #20262F;
@@ -62,6 +63,17 @@ div.loginPage div.main-content div.login-wrapper {
   width: 100%;
   color: white;
   transition: .2s;
+}
+div.loginPage div.main-content div.login-wrapper .return-link i {
+  font-size: 30px;
+  position: absolute;
+  left: 28px;
+  top: 13px;
+  color: white;
+  transition: .2s;
+}
+div.loginPage div.main-content div.login-wrapper .return-link i:hover {
+  color: #368AFB;
 }
 div.loginPage div.main-content div.login-wrapper h3 {
   font-size: 20px;
