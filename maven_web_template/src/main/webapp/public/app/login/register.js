@@ -53,11 +53,14 @@ export default class Register extends Component {
   }
 
   handleRegisterSubmit() {
+    const {history} = this.props;
     let prompts = [
       '*用户名不能为空',
       '*密码不能为空',
       '*两次密码输入不一致',
-      '*密码不能少于6位'
+      '*用户名不能少于6位',
+      '*密码不能少于6位',
+      '*注册失败,用户名已存在'
     ];
 
     if (this.state.username === '') {
@@ -72,19 +75,43 @@ export default class Register extends Component {
       this.setState({
         prompt: prompts[2]
       })
-    } else if (this.state.password.length < 6) {
+    } else if (this.state.username.length < 6) {
       this.setState({
         prompt: prompts[3]
       })
+    } else if (this.state.password.length < 6) {
+      this.setState({
+        prompt: prompts[4]
+      })
     } else {
       HttpService.http({
-        
+        url: 'http://localhost:8080/user/register',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+          username: this.state.username,
+          password: this.state.password
+        }
       }).then(
         function (data) {
-          
+          if (data.result === 'success') {
+            // 在localStorage中加入信息, 在跳转后进行提示
+            let userInfo = {
+              isRegistered: true
+            };
+            localStorage.setItem('userInfo', JSON.stringify(userInfo));
+
+            history.push('/');
+          } else {
+            this.setState({
+              prompt: prompts[4]
+            })
+          }
         },
         function (data) {
-          
+          this.setState({
+            prompt: prompts[4]
+          })
         }
       )
     }
@@ -102,9 +129,9 @@ export default class Register extends Component {
               <form id="resetPassword" role="form">
                 <div className="form-group">
                   <label className="control-label">输入用户名：</label>
-                  <input value={this.state.username} onChange={this.handleUsernameChange} type="password"
+                  <input value={this.state.username} onChange={this.handleUsernameChange} type="text"
                          className="form-control"
-                         placeholder="请输入新密码"/>
+                         placeholder="请输入用户名"/>
                 </div>
                 <div className="form-group">
                   <label className="control-label">请输入密码：</label>

@@ -65,7 +65,7 @@ div.loginPage div.main-content div.login-wrapper {
   transition: .2s;
 }
 div.loginPage div.main-content div.login-wrapper .return-link i {
-  font-size: 30px;
+  font-size: 28px;
   position: absolute;
   left: 28px;
   top: 13px;
@@ -98,6 +98,9 @@ div.loginPage div.main-content div.login-wrapper p.question-get {
 }
 div.loginPage div.main-content div.login-wrapper p.prompt {
   color: rgba(255, 0, 0, 0.95);
+}
+div.loginPage div.main-content div.login-wrapper p.prompt-success {
+  color: #368AFB;
 }
 div.loginPage div.main-content div.login-wrapper form span.input-icon i {
   float: right;

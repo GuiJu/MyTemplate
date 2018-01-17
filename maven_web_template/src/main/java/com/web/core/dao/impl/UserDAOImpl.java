@@ -9,6 +9,9 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.io.Serializable;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -35,6 +38,25 @@ public class UserDAOImpl implements UserDAO {
 
         Session session = getSession();
         return (UserEntity) session.get(UserEntity.class, id);
+    }
+
+    @Override
+    public boolean createNewUser(String username, String password) {
+
+        if (selectUserByUsername(username) != null) {
+            return false;
+        } else {
+            UserEntity userEntity = new UserEntity();
+            userEntity.setUsername(username);
+            userEntity.setPassword(password);
+            userEntity.setCreateTime(new Timestamp(System.currentTimeMillis()));
+            userEntity.setUpdateTime(new Timestamp(System.currentTimeMillis()));
+
+            Session session = getSession();
+            session.save(userEntity);
+            return true;
+        }
+
     }
 
     @Override
@@ -85,6 +107,7 @@ public class UserDAOImpl implements UserDAO {
         Session session = getSession();
         UserEntity userEntity = selectUserByUsername(username);
         userEntity.setPassword(newPassword);
+        userEntity.setUpdateTime((Timestamp) new Date());
 
         session.merge(userEntity);
         return true;

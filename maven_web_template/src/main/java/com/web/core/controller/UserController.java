@@ -137,4 +137,26 @@ public class UserController {
         return objectMapper.writeValueAsString(result);
     }
 
+    /**
+     * 注册新用户
+     *
+     * @param request http请求
+     * @return response
+     */
+    @RequestMapping(value = "/user/register", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public String register(@RequestBody Map<String, String> request) throws JsonProcessingException {
+        String username = request.get("username");
+        String password = request.get("password");
+        Map<String, String> result = new HashMap<String, String>(16);
+
+        if (userService.register(username, password)) {
+            result.put("result", SUCCESS);
+        } else {
+            result.put("result", ERROR);
+        }
+
+        return objectMapper.writeValueAsString(result);
+    }
+
 }

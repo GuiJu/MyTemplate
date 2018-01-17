@@ -15,19 +15,29 @@ class Login extends Component {
     this.state = {
       username: '',
       password: '',
-      prompt: ''
     };
 
     this.handleUsernameChange = this.handleUsernameChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
 
-    // 重置localStorage
-    let userInfo = {
-      isChecked: false,
-      isAnswered: false
-    };
-    localStorage.setItem('userInfo', JSON.stringify(userInfo));
+    // 先验证userInfo是否存在, 若存在则验证其isRegistered是否为true, 并显示对应提示
+    let userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    if (!userInfo) {
+      // 重置localStorage
+      userInfo = {
+        isChecked: false,
+        isAnswered: false,
+        isRegistered: false
+      };
+      localStorage.setItem('userInfo', JSON.stringify(userInfo));
+    } else {
+      if (userInfo.isRegistered) {
+        this.state.prompt = '注册成功,请输入用户名密码以登录';
+        userInfo.isRegistered = false;
+        localStorage.setItem('userInfo', JSON.stringify(userInfo));
+      }
+    }
   }
 
   // 用户名输入框控制
@@ -117,7 +127,7 @@ class Login extends Component {
                 </div>
                 <div className="forget-ps-href">
                   <span className="prompt">{this.state.prompt}</span>
-                  <Link to="/forgetPs" className="forget-ps">忘记密码？</Link>
+                  <Link to="/forgetPs" className="forget-ps">忘记密码?</Link>
                 </div>
                 <button onClick={this.handleLogin} type="button" className="btn btn-custom btn-login" >登录</button>
                 <Link to="register" className="btn btn-custom btn-register">注册</Link>

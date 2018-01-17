@@ -18,6 +18,15 @@ public interface UserDAO {
     UserEntity selectUserById(int id);
 
     /**
+     * 创建新用户
+     *
+     * @param username username
+     * @param password password
+     * @return 创建是否成功boolean
+     */
+    boolean createNewUser(String username, String password);
+
+    /**
      * 根据用户username获得User
      *
      * @param username 用户username
