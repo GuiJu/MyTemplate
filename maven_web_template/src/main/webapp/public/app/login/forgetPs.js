@@ -37,7 +37,7 @@ export default class ForgetPs extends Component {
     const {match, location, history} = this.props;
 
     HttpService.http({
-      url: 'http://localhost:8080/user/checkUsername',
+      url: 'http://localhost:8080/user/checkusername',
       type: 'POST',
       dataType: 'json',
       data: {
@@ -48,7 +48,7 @@ export default class ForgetPs extends Component {
         if (data.result === 'success') {
           // 向localStorage加入验证数据
           let userInfo = {
-            userId: this.state.username,
+            username: this.state.username,
             isChecked: true
           };
           localStorage.setItem('userInfo', JSON.stringify(userInfo));
@@ -75,7 +75,7 @@ export default class ForgetPs extends Component {
           <div className="main-content">
             <div className="login-wrapper wrapper-forget-ps pull-right">
               <h3 className="forget-ps-header">找回密码</h3>
-              <form id="passwordPPast" className="ng-pristine ng-valid" role="form">
+              <form className="ng-pristine ng-valid" role="form">
                 <div className="form-group">
                   <label className="control-label">请输入登录名：</label>
                   <input value={this.state.username} onChange={this.handleUsernameChange} type="text"

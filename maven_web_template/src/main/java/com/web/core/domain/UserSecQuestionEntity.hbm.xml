@@ -6,8 +6,8 @@
 
     <class name="com.web.core.domain.UserSecQuestionEntity" table="user_sec_question" schema="webconsole">
         <id name="id" column="id"/>
-        <property name="userId" column="userId"/>
         <property name="secQuestion" column="sec_question"/>
         <property name="secAnswer" column="sec_answer"/>
+        <property name="username" column="username"/>
     </class>
 </hibernate-mapping>

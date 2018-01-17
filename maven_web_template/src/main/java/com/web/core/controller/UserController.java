@@ -43,7 +43,7 @@ public class UserController {
         String password = request.get("password");
         Map<String, String> result = new HashMap<String, String>(16);
 
-        if (userService.validateUser(username, password)) {
+        if (userService.valnameateUser(username, password)) {
             result.put("result", SUCCESS);
             return objectMapper.writeValueAsString(result);
         } else {
@@ -69,6 +69,7 @@ public class UserController {
             return objectMapper.writeValueAsString(result);
         } else {
             result.put("result", ERROR);
+            result.put("msg", "Username does not exist");
             return objectMapper.writeValueAsString(result);
         }
     }
@@ -82,9 +83,9 @@ public class UserController {
     @RequestMapping(value = "/user/getSecQuestion", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String getSecQuestion(HttpServletRequest request) throws JsonProcessingException {
-        String userId = request.getParameter("userId");
+        String username = request.getParameter("username");
         Map<String, String> result = new HashMap<String, String>(16);
-        String secQuestion = userService.getSecQuestion(userId);
+        String secQuestion = userService.getSecQuestion(username);
 
         result.put("result", SUCCESS);
         result.put("secQuestion", secQuestion);
@@ -94,17 +95,18 @@ public class UserController {
 
     /**
      * 验证密保问题答案
+     *
      * @param request http请求
      * @return response
      */
     @RequestMapping(value = "/user/verifySecAnswer", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String verifySecAnswer(@RequestBody Map<String, String> request) throws JsonProcessingException {
-        String userId = request.get("userId");
+        String username = request.get("username");
         String answer = request.get("answer");
         Map<String, String> result = new HashMap<String, String>(16);
 
-        if (userService.verifySecAnswer(userId, answer)) {
+        if (userService.verifySecAnswer(username, answer)) {
             result.put("result", SUCCESS);
         } else {
             result.put("result", ERROR);
@@ -115,17 +117,18 @@ public class UserController {
 
     /**
      * 重置密码
+     *
      * @param request http请求
      * @return response
      */
     @RequestMapping(value = "/user/resetPassword", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String resetPassword(@RequestBody Map<String, String> request) throws JsonProcessingException {
-        String userId = request.get("userId");
+        String username = request.get("username");
         String password = request.get("password");
         Map<String, String> result = new HashMap<String, String>(16);
 
-        if (userService.resetPassword(userId, password)) {
+        if (userService.resetPassword(username, password)) {
             result.put("result", SUCCESS);
         } else {
             result.put("result", ERROR);

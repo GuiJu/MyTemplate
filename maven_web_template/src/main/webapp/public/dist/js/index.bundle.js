@@ -907,7 +907,7 @@ var ForgetPs = _wrapComponent('ForgetPs')((_temp = _class = function (_Component
         type: 'POST',
         dataType: 'json',
         data: {
-          username: this.state.username
+          username: this.state.userId
         }
       }).then(function (data) {
         if (data.result === 'success') {
@@ -947,7 +947,7 @@ var ForgetPs = _wrapComponent('ForgetPs')((_temp = _class = function (_Component
                     { className: 'control-label' },
                     '\u8BF7\u8F93\u5165\u767B\u5F55\u540D\uFF1A'
                   ),
-                  _react3.default.createElement('input', { value: this.state.username, onChange: this.handleUsernameChange, type: 'text',
+                  _react3.default.createElement('input', { value: this.state.userId, onChange: this.handleUsernameChange, type: 'text',
                     className: 'form-control', id: 'fUserName',
                     placeholder: '\u8BF7\u8F93\u5165\u767B\u5F55\u540D' })
                 ),
@@ -1224,7 +1224,7 @@ var Login = _wrapComponent('Login')(function (_Component) {
     var _this = _possibleConstructorReturn(this, (Login.__proto__ || Object.getPrototypeOf(Login)).call(this, props));
 
     _this.state = {
-      username: '',
+      userId: '',
       password: ''
     };
 
@@ -1241,7 +1241,7 @@ var Login = _wrapComponent('Login')(function (_Component) {
     key: 'handleUsernameChange',
     value: function handleUsernameChange(event) {
       this.setState({
-        username: event.target.value
+        userId: event.target.value
       });
     }
 
@@ -1265,7 +1265,7 @@ var Login = _wrapComponent('Login')(function (_Component) {
         type: "POST",
         dataType: "json",
         data: {
-          username: this.state.username,
+          userId: this.state.userId,
           password: this.state.password
         }
       }).then(function (data) {
@@ -1309,8 +1309,8 @@ var Login = _wrapComponent('Login')(function (_Component) {
                     { className: 'control-label' },
                     '\u767B\u5F55\u540D\uFF1A'
                   ),
-                  _react3.default.createElement('input', { value: this.state.username, onChange: this.handleUsernameChange, type: 'text',
-                    className: 'form-control', id: 'username',
+                  _react3.default.createElement('input', { value: this.state.userId, onChange: this.handleUsernameChange, type: 'text',
+                    className: 'form-control', id: 'userId',
                     placeholder: '\u8BF7\u8F93\u5165\u90AE\u7BB1\u6216\u624B\u673A\u53F7' })
                 ),
                 _react3.default.createElement(
@@ -5946,7 +5946,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
       Sb = r.ajaxSettings.xhr();o.cors = !!Sb && "withCredentials" in Sb, o.ajax = Sb = !!Sb, r.ajaxTransport(function (b) {
     var _c, d;if (o.cors || Sb && !b.crossDomain) return { send: function send(e, f) {
         var g,
-            h = b.xhr();if (h.open(b.type, b.url, b.async, b.username, b.password), b.xhrFields) for (g in b.xhrFields) {
+            h = b.xhr();if (h.open(b.type, b.url, b.async, b.userId, b.password), b.xhrFields) for (g in b.xhrFields) {
           h[g] = b.xhrFields[g];
         }b.mimeType && h.overrideMimeType && h.overrideMimeType(b.mimeType), b.crossDomain || e["X-Requested-With"] || (e["X-Requested-With"] = "XMLHttpRequest");for (g in e) {
           h.setRequestHeader(g, e[g]);

@@ -1,11 +1,11 @@
 /**
- * @file ResetPs页面组件
+ * @file Register页面组件
  */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import HttpService from '../util/HttpService';
 
-export default class ResetPs extends Component {
+export default class Register extends Component {
 
   static propTypes = {
     match: PropTypes.object.isRequired,
@@ -22,72 +22,7 @@ export default class ResetPs extends Component {
       userInfo: JSON.parse(localStorage.getItem('userInfo'))
     };
 
-    this.handlePasswordChange = this.handlePasswordChange.bind(this);
-    this.handlePasswordAgainChange = this.handlePasswordAgainChange.bind(this);
-    this.handlePasswordSubmit = this.handlePasswordSubmit.bind(this);
-
     const {match, location, history} = this.props;
-    let userInfo = this.state.userInfo;
-    // 验证是否已经通过forgetPs页面进行useId的检查, 若没有进行检查则跳转回主页
-    if (!userInfo.isChecked || !userInfo.isAnswered) {
-      history.push('/');
-    }
-  }
-
-  handlePasswordChange(e) {
-    this.setState({
-      password: e.target.value
-    })
-  }
-
-  handlePasswordAgainChange(e) {
-    this.setState({
-      passwordAgain: e.target.value
-    })
-  }
-
-  handlePasswordSubmit() {
-    const {history} = this.props;
-    let prompts = [
-      '*两次密码输入不一致',
-      '*密码长度不少于6位',
-      '*重置密码失败,请与管理员联系'
-    ];
-    // 判断两次输入密码是否相同以及密码长度
-    if (this.state.password !== this.state.passwordAgain) {
-      this.setState({
-        prompt: prompts[0]
-      })
-    } else if (this.state.password.length < 6) {
-      this.setState({
-        prompt: prompts[1]
-      })
-    } else {
-      HttpService.http({
-        url: 'http://localhost:8080/user/resetPassword',
-        type: 'POST',
-        dataType: 'json',
-        data: {
-          username: this.state.userInfo.username,
-          password: this.state.password
-        }
-      }).then(
-        function (data) {
-          if (data.result === 'success') {
-            // 重置成功返回主页
-            history.push('/');
-          } else {
-            this.setState({
-              prompt: prompts[2]
-            });
-          }
-        },
-        function (err) {
-          this.setState({
-            prompt: prompts[2]
-          });
-        })
-    }
   }
 
   render() {

@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 
 /**
  * @author jutal
- * @date 18-1-12
+ * @date 18-1-17
  * @file
  */
 @Entity
@@ -17,7 +17,7 @@ public class UserEntity {
     private Timestamp updateTime;
     private Timestamp createTime;
     private int type;
-    private String userId;
+    private String name;
 
     @Id
     @Column(name = "id")
@@ -80,13 +80,13 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "userId")
-    public String getUserId() {
-        return userId;
+    @Column(name = "name")
+    public String getName() {
+        return name;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
@@ -102,7 +102,7 @@ public class UserEntity {
         if (username != null ? !username.equals(that.username) : that.username != null) return false;
         if (updateTime != null ? !updateTime.equals(that.updateTime) : that.updateTime != null) return false;
         if (createTime != null ? !createTime.equals(that.createTime) : that.createTime != null) return false;
-        if (userId != null ? !userId.equals(that.userId) : that.userId != null) return false;
+        if (name != null ? !name.equals(that.name) : that.name != null) return false;
 
         return true;
     }
@@ -115,7 +115,7 @@ public class UserEntity {
         result = 31 * result + (updateTime != null ? updateTime.hashCode() : 0);
         result = 31 * result + (createTime != null ? createTime.hashCode() : 0);
         result = 31 * result + type;
-        result = 31 * result + (userId != null ? userId.hashCode() : 0);
+        result = 31 * result + (name != null ? name.hashCode() : 0);
         return result;
     }
 }

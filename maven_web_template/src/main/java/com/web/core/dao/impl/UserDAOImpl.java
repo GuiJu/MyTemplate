@@ -38,29 +38,9 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public UserEntity selectUserByUserId(String userId) {
+    public UserEntity selectUserByUsername(String username) {
         Session session = getSession();
-        String hql = "FROM UserEntity as user where user.userId = '" + userId + "'";
-        Query query = session.createQuery(hql);
-        List list = query.list();
-
-        return (UserEntity) list.get(0);
-    }
-
-    @Override
-    public UserSecQuestionEntity selectUserSecByUserId(String userId) {
-        Session session = getSession();
-        String hql = "FROM UserSecQuestionEntity as userSec where userSec.userId = '" + userId + "'";
-        Query query = session.createQuery(hql);
-        List list = query.list();
-
-        return (UserSecQuestionEntity) list.get(0);
-    }
-
-    @Override
-    public UserEntity selectUserByUserIdAndPassword(String userId, String password) {
-        Session session = getSession();
-        String hql = "FROM UserEntity as user where user.userId = '" + userId + "' and user.password = '" + password + "'";
+        String hql = "FROM UserEntity as user where user.username = '" + username + "'";
         Query query = session.createQuery(hql);
         List list = query.list();
 
@@ -72,9 +52,38 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public boolean updateUserPassword(String userId, String newPassword) {
+    public UserSecQuestionEntity selectUserSecByUsername(String username) {
         Session session = getSession();
-        UserEntity userEntity = selectUserByUserId(userId);
+        String hql = "FROM UserSecQuestionEntity as userSec where userSec.username = '" + username + "'";
+        Query query = session.createQuery(hql);
+        List list = query.list();
+
+        if (list.size() == 0) {
+            return null;
+        } else {
+            return (UserSecQuestionEntity) list.get(0);
+        }
+
+    }
+
+    @Override
+    public UserEntity selectUserByUsernameAndPassword(String username, String password) {
+        Session session = getSession();
+        String hql = "FROM UserEntity as user where user.username = '" + username + "' and user.password = '" + password + "'";
+        Query query = session.createQuery(hql);
+        List list = query.list();
+
+        if (list.size() == 0) {
+            return null;
+        } else {
+            return (UserEntity) list.get(0);
+        }
+    }
+
+    @Override
+    public boolean updateUserPassword(String username, String newPassword) {
+        Session session = getSession();
+        UserEntity userEntity = selectUserByUsername(username);
         userEntity.setPassword(newPassword);
 
         session.merge(userEntity);

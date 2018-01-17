@@ -4,7 +4,7 @@
  * @file
  */
 import React, { Component } from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import HttpService from '../util/HttpService';
 import '../../css/login.css';
 
@@ -14,7 +14,8 @@ class Login extends Component {
 
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      prompt: ''
     };
 
     this.handleUsernameChange = this.handleUsernameChange.bind(this);
@@ -32,32 +33,68 @@ class Login extends Component {
   // 用户名输入框控制
   handleUsernameChange(event) {
     this.setState({
-      username: event.target.value
+      username: event.target.value,
+      prompt: ''
     })
   }
 
   // 密码输入框控制
   handlePasswordChange(event) {
     this.setState({
-      password: event.target.value
+      password: event.target.value,
+      prompt: ''
     })
   }
 
   // 登录
   handleLogin() {
-    HttpService.http({
-      url: "http://localhost:8080/user/userLogin",
-      type: "POST",
-      dataType: "json",
-      data: {
-        username: this.state.username,
-        password: this.state.password
-      }
-    })
+    let prompts = [
+      '*用户名不能为空',
+      '*密码不能为空',
+      '*用户名或密码错错误',
+      '*登录失败'
+    ];
+    let username = this.state.username;
+    let password = this.state.password;
+
+    // 判断用户名密码
+    if (username === '') {
+      this.setState({
+        prompt: prompts[0]
+      })
+    } else if (password === '') {
+      this.setState({
+        prompt: prompts[1]
+      })
+    } else {
+      HttpService.http({
+        url: "http://localhost:8080/user/userLogin",
+        type: "POST",
+        dataType: "json",
+        data: {
+          username: this.state.username,
+          password: this.state.password
+        }
+      }).then(
+        function (data) {
+          if (data.result === 'success') {
+
+          } else {
+            this.setState({
+              prompt: prompts[2]
+            })
+          }
+        }.bind(this),
+        function (err) {
+          this.setState({
+            prompt: prompts[3]
+          })
+        }.bind(this)
+      )
+    }
   }
 
   render() {
-
     return (
       <div className="loginPage">
         <div className="container">
@@ -79,9 +116,11 @@ class Login extends Component {
                          placeholder="请输入密码"/>
                 </div>
                 <div className="forget-ps-href">
+                  <span className="prompt">{this.state.prompt}</span>
                   <Link to="/forgetPs" className="forget-ps">忘记密码？</Link>
                 </div>
-                <button className="btn btn-custom" onClick={this.handleLogin}>登录</button>
+                <button onClick={this.handleLogin} type="button" className="btn btn-custom btn-login" >登录</button>
+                <Link to="register" className="btn btn-custom btn-register">注册</Link>
               </form>
             </div>
           </div>

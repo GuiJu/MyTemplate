@@ -33,16 +33,16 @@ class ForgetPsNext extends Component {
     if (!this.state.userInfo.isChecked) {
       history.push('/');
     } else {
-      // userInfo中获得userId
-      let userId = this.state.userInfo.userId;
+      // userInfo中获得username
+      let username = this.state.userInfo.username;
       let that = this;
 
-      // 根据用户userId获取密保问题
+      // 根据用户username获取密保问题
       HttpService.http({
         url: 'http://localhost:8080/user/getSecQuestion',
         type: 'GET',
         data: {
-          userId: userId
+          username: username
         }
       }).then(
         function (data) {
@@ -83,7 +83,7 @@ class ForgetPsNext extends Component {
         type: 'POST',
         dataType: 'json',
         data: {
-          userId: this.state.userInfo.userId,
+          username: this.state.userInfo.username,
           answer: this.state.secAnswer
         }
       }).then(

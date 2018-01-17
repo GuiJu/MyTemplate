@@ -11,6 +11,6 @@
         <property name="updateTime" column="update_time"/>
         <property name="createTime" column="create_time"/>
         <property name="type" column="type"/>
-        <property name="userId" column="userId"/>
+        <property name="name" column="name"/>
     </class>
 </hibernate-mapping>
