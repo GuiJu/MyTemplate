@@ -93,7 +93,7 @@ export default class Register extends Component {
           password: this.state.password
         }
       }).then(
-        function (data) {
+        (data) => {
           if (data.result === 'success') {
             // 在localStorage中加入信息, 在跳转后进行提示
             let userInfo = {
@@ -108,7 +108,7 @@ export default class Register extends Component {
             })
           }
         },
-        function (data) {
+        (data) => {
           this.setState({
             prompt: prompts[4]
           })

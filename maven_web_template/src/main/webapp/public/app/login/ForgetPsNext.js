@@ -4,7 +4,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import HttpService from '../util/HttpService';
-import '../../css/login.css';
 
 class ForgetPsNext extends Component {
 
@@ -45,14 +44,14 @@ class ForgetPsNext extends Component {
           username: username
         }
       }).then(
-        function (data) {
+        (data) => {
           if (data.result === 'success') {
             that.setState({
               secQuestion: data.secQuestion
             })
           }
         },
-        function (err) {
+        (err) => {
           console.log(err);
         }
       )
@@ -87,7 +86,7 @@ class ForgetPsNext extends Component {
           answer: this.state.secAnswer
         }
       }).then(
-        function (data) {
+        (data) => {
           // 验证成功则跳转resetPs页面
           if (data.result === 'success') {
             // localStorage中加入验证
@@ -101,13 +100,13 @@ class ForgetPsNext extends Component {
               prompt: prompts[0]
             });
           }
-        }.bind(this),
-        function (err) {
+        },
+        (err) => {
           this.setState({
             prompt: prompts[0]
           });
           console.log(err);
-        }.bind(this)
+        }
       )
     }
   }

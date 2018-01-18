@@ -5,7 +5,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import HttpService from '../util/HttpService';
-import '../../css/login.css';
 
 export default class ForgetPs extends Component {
 
@@ -17,12 +16,11 @@ export default class ForgetPs extends Component {
 
   constructor(props) {
     super(props);
-
     this.state = {
       username: '',
       prompt: ''
     };
-
+    const {match, location, history} = this.props;
     this.handleUsernameChange = this.handleUsernameChange.bind(this);
     this.handleCheckUsername = this.handleCheckUsername.bind(this);
   }
@@ -38,14 +36,14 @@ export default class ForgetPs extends Component {
     const {match, location, history} = this.props;
 
     HttpService.http({
-      url: 'http://localhost:8080/user/checkusername',
+      url: 'http://localhost:8080/user/checkUsername',
       type: 'POST',
       dataType: 'json',
       data: {
         username: this.state.username,
       }
     }).then(
-      function (data) {
+      (data) => {
         if (data.result === 'success') {
           // 向localStorage加入验证数据
           let userInfo = {
@@ -61,12 +59,12 @@ export default class ForgetPs extends Component {
             prompt: '*用户名输入错误或不存在'
           })
         }
-      }.bind(this),
-      function (err) {
+      },
+      (err) => {
         this.setState({
           prompt: '*用户名输入错误或不存在'
         })
-      }.bind(this))
+      })
   }
 
   render() {

@@ -739,7 +739,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactDom = __webpack_require__("./node_modules/react-dom/index.js");
 
-var _app = __webpack_require__("./app/login/app.js");
+var _app = __webpack_require__("./app/login/App.js");
 
 var _app2 = _interopRequireDefault(_app);
 
@@ -765,19 +765,19 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouterDom = __webpack_require__("./node_modules/react-router-dom/es/index.js");
 
-var _login = __webpack_require__("./app/login/login.js");
+var _login = __webpack_require__("./app/login/Login.js");
 
 var _login2 = _interopRequireDefault(_login);
 
-var _forgetPs = __webpack_require__("./app/login/forgetPs.js");
+var _forgetPs = __webpack_require__("./app/login/ForgetPs.js");
 
 var _forgetPs2 = _interopRequireDefault(_forgetPs);
 
-var _forgetPsNext = __webpack_require__("./app/login/forgetPsNext.js");
+var _forgetPsNext = __webpack_require__("./app/login/ForgetPsNext.js");
 
 var _forgetPsNext2 = _interopRequireDefault(_forgetPsNext);
 
-var _resetPs = __webpack_require__("./app/login/resetPs.js");
+var _resetPs = __webpack_require__("./app/login/ResetPs.js");
 
 var _resetPs2 = _interopRequireDefault(_resetPs);
 
@@ -854,7 +854,7 @@ var _components = {
 };
 
 var _reactTransformHmr2 = (0, _reactTransformHmr4.default)({
-  filename: '/home/jutal/Gitworkspace/MyTemplate/maven_web_template/src/main/webapp/public/app/login/forgetPs.js',
+  filename: '/home/jutal/Gitworkspace/MyTemplate/maven_web_template/src/main/webapp/public/app/login/ForgetPs.js',
   components: _components,
   locals: [module],
   imports: [_react3.default]
@@ -1026,7 +1026,7 @@ var _components = {
 };
 
 var _reactTransformHmr2 = (0, _reactTransformHmr4.default)({
-  filename: '/home/jutal/Gitworkspace/MyTemplate/maven_web_template/src/main/webapp/public/app/login/forgetPsNext.js',
+  filename: '/home/jutal/Gitworkspace/MyTemplate/maven_web_template/src/main/webapp/public/app/login/ForgetPsNext.js',
   components: _components,
   locals: [module],
   imports: [_react3.default]
@@ -1198,7 +1198,7 @@ var _components = {
 };
 
 var _reactTransformHmr2 = (0, _reactTransformHmr4.default)({
-  filename: '/home/jutal/Gitworkspace/MyTemplate/maven_web_template/src/main/webapp/public/app/login/login.js',
+  filename: '/home/jutal/Gitworkspace/MyTemplate/maven_web_template/src/main/webapp/public/app/login/Login.js',
   components: _components,
   locals: [module],
   imports: [_react3.default]
@@ -1390,7 +1390,7 @@ var _components = {
 };
 
 var _reactTransformHmr2 = (0, _reactTransformHmr4.default)({
-  filename: "/home/jutal/Gitworkspace/MyTemplate/maven_web_template/src/main/webapp/public/app/login/resetPs.js",
+  filename: "/home/jutal/Gitworkspace/MyTemplate/maven_web_template/src/main/webapp/public/app/login/ResetPs.js",
   components: _components,
   locals: [module],
   imports: [_react3.default]

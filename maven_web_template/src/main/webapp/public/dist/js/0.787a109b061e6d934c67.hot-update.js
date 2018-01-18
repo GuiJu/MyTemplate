@@ -37,7 +37,7 @@ var _components = {
 };
 
 var _reactTransformHmr2 = (0, _reactTransformHmr4.default)({
-  filename: '/home/jutal/Gitworkspace/MyTemplate/maven_web_template/src/main/webapp/public/app/login/app.js',
+  filename: '/home/jutal/Gitworkspace/MyTemplate/maven_web_template/src/main/webapp/public/app/login/App.js',
   components: _components,
   locals: [module],
   imports: [_react3.default]

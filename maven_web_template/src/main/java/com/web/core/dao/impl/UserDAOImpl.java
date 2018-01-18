@@ -107,7 +107,7 @@ public class UserDAOImpl implements UserDAO {
         Session session = getSession();
         UserEntity userEntity = selectUserByUsername(username);
         userEntity.setPassword(newPassword);
-        userEntity.setUpdateTime((Timestamp) new Date());
+        userEntity.setUpdateTime(new Timestamp(System.currentTimeMillis()));
 
         session.merge(userEntity);
         return true;

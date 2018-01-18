@@ -72,7 +72,7 @@ export default class ResetPs extends Component {
           password: this.state.password
         }
       }).then(
-        function (data) {
+        (data) => {
           if (data.result === 'success') {
             // 重置成功返回主页
             history.push('/');
@@ -82,7 +82,7 @@ export default class ResetPs extends Component {
             });
           }
         },
-        function (err) {
+        (err) => {
           this.setState({
             prompt: prompts[2]
           });

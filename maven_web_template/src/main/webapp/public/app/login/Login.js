@@ -6,7 +6,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import HttpService from '../util/HttpService';
-import '../../css/login.css';
 
 class Login extends Component {
   constructor(props) {
@@ -38,6 +37,9 @@ class Login extends Component {
         localStorage.setItem('userInfo', JSON.stringify(userInfo));
       }
     }
+
+    console.log('userInfo: -----' + JSON.stringify(this.props.userInfo));
+
   }
 
   // 用户名输入框控制
@@ -86,7 +88,7 @@ class Login extends Component {
           password: this.state.password
         }
       }).then(
-        function (data) {
+        (data) => {
           if (data.result === 'success') {
 
           } else {
@@ -94,12 +96,12 @@ class Login extends Component {
               prompt: prompts[2]
             })
           }
-        }.bind(this),
-        function (err) {
+        },
+        (err) => {
           this.setState({
             prompt: prompts[3]
           })
-        }.bind(this)
+        }
       )
     }
   }
