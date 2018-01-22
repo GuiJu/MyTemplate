@@ -4,10 +4,20 @@
  * @file
  */
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import HttpService from '../util/HttpService';
 
 class Login extends Component {
+
+  static propTypes = {
+    userInfo: PropTypes.object.isRequired,
+    setChecked: PropTypes.func.isRequired,
+    setAnswered: PropTypes.func.isRequired,
+    setRegistered: PropTypes.func.isRequired
+  };
+
   constructor(props) {
     super(props);
 
@@ -21,25 +31,18 @@ class Login extends Component {
     this.handleLogin = this.handleLogin.bind(this);
 
     // 先验证userInfo是否存在, 若存在则验证其isRegistered是否为true, 并显示对应提示
-    let userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    let {userInfo, setChecked, setAnswered, setRegistered} = props;
     if (!userInfo) {
       // 重置localStorage
-      userInfo = {
-        isChecked: false,
-        isAnswered: false,
-        isRegistered: false
-      };
-      localStorage.setItem('userInfo', JSON.stringify(userInfo));
+      setChecked(false);
+      setAnswered(false);
+      setRegistered(false);
     } else {
       if (userInfo.isRegistered) {
         this.state.prompt = '注册成功,请输入用户名密码以登录';
-        userInfo.isRegistered = false;
-        localStorage.setItem('userInfo', JSON.stringify(userInfo));
+        setRegistered(false);
       }
     }
-
-    console.log('userInfo: -----' + JSON.stringify(this.props.userInfo));
-
   }
 
   // 用户名输入框控制
@@ -88,7 +91,7 @@ class Login extends Component {
           password: this.state.password
         }
       }).then(
-        (data) => {
+        function (data) {
           if (data.result === 'success') {
 
           } else {
@@ -96,12 +99,12 @@ class Login extends Component {
               prompt: prompts[2]
             })
           }
-        },
-        (err) => {
+        }.bind(this),
+        function (err) {
           this.setState({
             prompt: prompts[3]
           })
-        }
+        }.bind(this)
       )
     }
   }
@@ -131,7 +134,7 @@ class Login extends Component {
                   <span className="prompt">{this.state.prompt}</span>
                   <Link to="/forgetPs" className="forget-ps">忘记密码?</Link>
                 </div>
-                <button onClick={this.handleLogin} type="button" className="btn btn-custom btn-login" >登录</button>
+                <button onClick={this.handleLogin} type="button" className="btn btn-custom btn-login">登录</button>
                 <Link to="register" className="btn btn-custom btn-register">注册</Link>
               </form>
             </div>
@@ -142,4 +145,28 @@ class Login extends Component {
   }
 }
 
-export default Login;
+
+// Map Redux state to component props
+function mapStateToProps(state) {
+  return {
+    userInfo: state.userInfo
+  }
+}
+
+// Map Redux actions to component props
+function mapDispatchToProps(dispatch) {
+  return {
+    setChecked: (bool) => dispatch(setOptions('SET_CHECKED', bool)),
+    setAnswered: (bool) => dispatch(setOptions('SET_ANSWERED', bool)),
+    setRegistered: (bool) => dispatch(setOptions('SET_REGISTERED', bool)),
+    setUsername: (username) => dispatch({type: 'SET_USERNAME', payload: username})
+  };
+}
+
+// Connected Component
+const VisibleLogin = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Login);
+
+export default VisibleLogin;
