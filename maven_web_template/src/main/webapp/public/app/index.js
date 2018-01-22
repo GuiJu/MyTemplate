@@ -1,6 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { createStore } from 'redux';
+import { Provider, connect } from 'react-redux';
 import App from './login/App';
 import '../css/login.css';
 
@@ -17,18 +18,12 @@ const defaultState = {
 // Redux Reducer
 const setAuthority = (state = defaultState, action) => {
   switch (action.type) {
-    case 'SET_CHECKED_TRUE':
-      return state.isChecked = true;
-    case 'SET_CHECKED_FALSE':
-      return state.isChecked = false;
-    case 'SET_ANSWERED_TRUE':
-      return state.isAnswered = true;
-    case 'SET_ANSWERED_FALSE':
-      return state.isAnswered = false;
-    case 'SET_REGISTERED_TRUE':
-      return state.isRegistered = true;
-    case 'SET_REGISTERED_FALSE':
-      return state.isRegistered = false;
+    case 'SET_CHECKED':
+      return state.isChecked = action.payload;
+    case 'SET_ANSWERED':
+      return state.isAnswered = action.payload;
+    case 'SET_REGISTERED':
+      return state.isRegistered = action.payload;
     case 'SET_USERNAME':
       return state.username = action.payload;
     default:
@@ -53,10 +48,10 @@ const dispatchService = {
 // 创建store
 const store = createStore(setAuthority);
 
-// 尝试后:不能传store或是dispatchService,所以要使用redux-react
-// 否则只能单独传递每个调用store.dispatch. End
 render((
-  <App userInfo={store.getState().userInfo}/>
+  <Provider store={store}>
+    <App userInfo={store.getState().userInfo}/>
+  </Provider>
 ), document.getElementById('app'));
 
 store.subscribe(render);

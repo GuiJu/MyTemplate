@@ -13,11 +13,11 @@ const App = (props) => {
   return (
     <Router>
       <div>
-        <Route exact path='/' component={() => <Login userInfo={props.userInfo}/>}/>
-        <Route path='/forgetPs' component={() => <ForgetPs {...props} userInfo={props.userInfo}/>}/>
-        <Route path='/forgetPsNext' component={() => <ForgetPsNext {...props} userInfo={props.userInfo}/>}/>
-        <Route path='/resetPs' component={() => <ResetPs {...props} userInfo={props.userInfo}/>}/>
-        <Route path='/register' component={() => <Register {...props} userInfo={props.userInfo}/>}/>
+        <Route exact path='/' component={<Login/>}/>
+        <Route path='/forgetPs' component={<ForgetPs/>}/>
+        <Route path='/forgetPsNext' component={<ForgetPsNext/>}/>
+        <Route path='/resetPs' component={<ResetPs/>}/>
+        <Route path='/register' component={<Register/>}/>
       </div>
     </Router>
   );
