@@ -3,14 +3,15 @@
  */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { loginMapState, loginMapDispatch } from '../store/actions/loginAction';
 import HttpService from '../util/HttpService';
 
-export default class ResetPs extends Component {
+class ResetPs extends Component {
 
   static propTypes = {
-    match: PropTypes.object.isRequired,
-    location: PropTypes.object.isRequired,
-    history: PropTypes.object.isRequired
+    history: PropTypes.object.isRequired,
+    userInfo: PropTypes.object.isRequired
   };
 
   constructor(props) {
@@ -18,16 +19,14 @@ export default class ResetPs extends Component {
     this.state = {
       password: '',
       passwordAgain: '',
-      prompt: '',
-      userInfo: JSON.parse(localStorage.getItem('userInfo'))
+      prompt: ''
     };
 
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handlePasswordAgainChange = this.handlePasswordAgainChange.bind(this);
     this.handlePasswordSubmit = this.handlePasswordSubmit.bind(this);
 
-    const {match, location, history} = this.props;
-    let userInfo = this.state.userInfo;
+    const {history, userInfo} = props;
     // 验证是否已经通过forgetPs页面进行useId的检查, 若没有进行检查则跳转回主页
     if (!userInfo.isChecked || !userInfo.isAnswered) {
       history.push('/');
@@ -47,7 +46,7 @@ export default class ResetPs extends Component {
   }
 
   handlePasswordSubmit() {
-    const {history} = this.props;
+    const {history, userInfo} = this.props;
     let prompts = [
       '*两次密码输入不一致',
       '*密码长度不少于6位',
@@ -68,7 +67,7 @@ export default class ResetPs extends Component {
         type: 'POST',
         dataType: 'json',
         data: {
-          username: this.state.userInfo.username,
+          username: userInfo.username,
           password: this.state.password
         }
       }).then(
@@ -120,3 +119,10 @@ export default class ResetPs extends Component {
     )
   }
 }
+
+const VisibleResetPs = connect(
+  loginMapState,
+  loginMapDispatch
+)(ResetPs);
+
+export default VisibleResetPs;

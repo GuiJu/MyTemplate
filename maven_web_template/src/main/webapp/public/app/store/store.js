@@ -13,17 +13,21 @@ const defaultState = {
   }
 };
 
-// Redux Reducer
+// Redux Reducer, 注意要返回新的state对象
 const setAuthority = (state = defaultState, action) => {
   switch (action.type) {
     case 'SET_CHECKED':
-      return state.isChecked = action.payload;
+      state.userInfo.isChecked = action.payload;
+      return state;
     case 'SET_ANSWERED':
-      return state.isAnswered = action.payload;
+      state.userInfo.isAnswered = action.payload;
+      return state;
     case 'SET_REGISTERED':
-      return state.isRegistered = action.payload;
+      state.userInfo.isRegistered = action.payload;
+      return state;
     case 'SET_USERNAME':
-      return state.username = action.payload;
+      state.userInfo.username = action.payload;
+      return state;
     default:
       return state
   }

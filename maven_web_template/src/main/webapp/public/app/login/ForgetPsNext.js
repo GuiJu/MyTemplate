@@ -3,14 +3,18 @@
  */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import HttpService from '../util/HttpService';
+import { loginMapState, loginMapDispatch } from '../store/actions/loginAction';
 
 class ForgetPsNext extends Component {
 
   static propTypes = {
-    match: PropTypes.object.isRequired,
-    location: PropTypes.object.isRequired,
-    history: PropTypes.object.isRequired
+    history: PropTypes.object.isRequired,
+    userInfo: PropTypes.object.isRequired,
+    setAnswered: PropTypes.func.isRequired,
+    setChecked: PropTypes.func.isRequired,
+    setUsername: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -19,22 +23,19 @@ class ForgetPsNext extends Component {
     this.state = {
       secQuestion: '',
       secAnswer: '',
-      // 提示信息
-      prompt: '',
-      userInfo: JSON.parse(localStorage.getItem('userInfo'))
+      prompt: ''
     };
 
     this.handleSecAnswerChange = this.handleSecAnswerChange.bind(this);
     this.handleAnswerSubmit = this.handleAnswerSubmit.bind(this);
 
-    const {match, location, history} = this.props;
+    const {history, userInfo} = this.props;
     // 验证是否已经通过forgetPs页面进行useId的检查, 若没有进行检查则跳转回主页
-    if (!this.state.userInfo.isChecked) {
+    if (!userInfo.isChecked) {
       history.push('/');
     } else {
       // userInfo中获得username
-      let username = this.state.userInfo.username;
-      let that = this;
+      let username = userInfo.username;
 
       // 根据用户username获取密保问题
       HttpService.http({
@@ -46,7 +47,7 @@ class ForgetPsNext extends Component {
       }).then(
         (data) => {
           if (data.result === 'success') {
-            that.setState({
+            this.setState({
               secQuestion: data.secQuestion
             })
           }
@@ -66,7 +67,7 @@ class ForgetPsNext extends Component {
   }
 
   handleAnswerSubmit() {
-    const {history} = this.props;
+    const {history, setAnswered, userInfo} = this.props;
     let prompts = [
       '*密保问题回答错误',
       '*回答不能为空'
@@ -82,17 +83,15 @@ class ForgetPsNext extends Component {
         type: 'POST',
         dataType: 'json',
         data: {
-          username: this.state.userInfo.username,
+          username: userInfo.username,
           answer: this.state.secAnswer
         }
       }).then(
         (data) => {
           // 验证成功则跳转resetPs页面
           if (data.result === 'success') {
-            // localStorage中加入验证
-            let userInfo = this.state.userInfo;
-            userInfo.isAnswered = true;
-            localStorage.setItem('userInfo', JSON.stringify(userInfo));
+            // 加入验证
+            setAnswered(true);
 
             history.push('/resetPs');
           } else {
@@ -142,4 +141,9 @@ class ForgetPsNext extends Component {
   }
 }
 
-export default ForgetPsNext;
+const VisibleForgetPsNext = connect(
+  loginMapState,
+  loginMapDispatch
+)(ForgetPsNext);
+
+export default VisibleForgetPsNext;

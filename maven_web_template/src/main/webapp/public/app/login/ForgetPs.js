@@ -4,23 +4,27 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { loginMapState, loginMapDispatch } from '../store/actions/loginAction';
 import HttpService from '../util/HttpService';
 
-export default class ForgetPs extends Component {
+class ForgetPs extends Component {
 
   static propTypes = {
-    match: PropTypes.object.isRequired,
-    location: PropTypes.object.isRequired,
-    history: PropTypes.object.isRequired
+    history: PropTypes.object.isRequired,
+    userInfo: PropTypes.object.isRequired,
+    setChecked: PropTypes.func.isRequired,
+    setUsername: PropTypes.func.isRequired,
   };
 
   constructor(props) {
     super(props);
+
     this.state = {
       username: '',
       prompt: ''
     };
-    const {match, location, history} = this.props;
+
     this.handleUsernameChange = this.handleUsernameChange.bind(this);
     this.handleCheckUsername = this.handleCheckUsername.bind(this);
   }
@@ -33,7 +37,7 @@ export default class ForgetPs extends Component {
   }
 
   handleCheckUsername(e) {
-    const {match, location, history} = this.props;
+    const {history, setChecked, setUsername, userInfo} = this.props;
 
     HttpService.http({
       url: 'http://localhost:8080/user/checkUsername',
@@ -46,12 +50,8 @@ export default class ForgetPs extends Component {
       (data) => {
         if (data.result === 'success') {
           // 向localStorage加入验证数据
-          let userInfo = {
-            username: this.state.username,
-            isChecked: true
-          };
-          localStorage.setItem('userInfo', JSON.stringify(userInfo));
-
+          setUsername(this.state.username);
+          setChecked(true);
           // 验证成功则跳转到用户名密码重置页面
           history.push('/forgetPsNext');
         } else {
@@ -97,3 +97,10 @@ export default class ForgetPs extends Component {
     )
   }
 }
+
+const VisibleForgetPs = connect(
+  loginMapState,
+  loginMapDispatch
+)(ForgetPs);
+
+export default VisibleForgetPs;

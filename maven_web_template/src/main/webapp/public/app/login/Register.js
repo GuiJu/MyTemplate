@@ -4,14 +4,15 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { loginMapState, loginMapDispatch } from '../store/actions/loginAction';
 import HttpService from '../util/HttpService';
 
-export default class Register extends Component {
+class Register extends Component {
 
   static propTypes = {
-    match: PropTypes.object.isRequired,
-    location: PropTypes.object.isRequired,
-    history: PropTypes.object.isRequired
+    history: PropTypes.object.isRequired,
+    setRegistered: PropTypes.func.isRequired
   };
 
   constructor(props) {
@@ -28,7 +29,6 @@ export default class Register extends Component {
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handleRegisterSubmit = this.handleRegisterSubmit.bind(this);
 
-    const {match, location, history} = this.props;
   }
 
   handleUsernameChange(e) {
@@ -53,7 +53,7 @@ export default class Register extends Component {
   }
 
   handleRegisterSubmit() {
-    const {history} = this.props;
+    const {history, setRegistered} = this.props;
     let prompts = [
       '*用户名不能为空',
       '*密码不能为空',
@@ -95,12 +95,8 @@ export default class Register extends Component {
       }).then(
         (data) => {
           if (data.result === 'success') {
-            // 在localStorage中加入信息, 在跳转后进行提示
-            let userInfo = {
-              isRegistered: true
-            };
-            localStorage.setItem('userInfo', JSON.stringify(userInfo));
-
+            // 在userInfo中加入信息, 在跳转后进行提示
+            setRegistered(true);
             history.push('/');
           } else {
             this.setState({
@@ -157,3 +153,10 @@ export default class Register extends Component {
     )
   }
 }
+
+const VisibleRegister = connect(
+  loginMapState,
+  loginMapDispatch
+)(Register);
+
+export default VisibleRegister;

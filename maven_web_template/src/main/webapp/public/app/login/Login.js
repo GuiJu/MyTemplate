@@ -7,6 +7,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { loginMapState, loginMapDispatch } from '../store/actions/loginAction';
 import HttpService from '../util/HttpService';
 
 class Login extends Component {
@@ -32,17 +33,13 @@ class Login extends Component {
 
     // 先验证userInfo是否存在, 若存在则验证其isRegistered是否为true, 并显示对应提示
     let {userInfo, setChecked, setAnswered, setRegistered} = props;
-    if (!userInfo) {
-      // 重置localStorage
-      setChecked(false);
-      setAnswered(false);
-      setRegistered(false);
-    } else {
-      if (userInfo.isRegistered) {
-        this.state.prompt = '注册成功,请输入用户名密码以登录';
-        setRegistered(false);
-      }
+    if (userInfo.isRegistered === true) {
+      this.state.prompt = '注册成功,请输入用户名密码以登录';
     }
+    // 重置localStorage
+    setChecked(false);
+    setAnswered(false);
+    setRegistered(false);
   }
 
   // 用户名输入框控制
@@ -91,7 +88,7 @@ class Login extends Component {
           password: this.state.password
         }
       }).then(
-        function (data) {
+        (data) => {
           if (data.result === 'success') {
 
           } else {
@@ -99,12 +96,12 @@ class Login extends Component {
               prompt: prompts[2]
             })
           }
-        }.bind(this),
-        function (err) {
+        },
+        (err) => {
           this.setState({
             prompt: prompts[3]
           })
-        }.bind(this)
+        }
       )
     }
   }
@@ -145,23 +142,8 @@ class Login extends Component {
   }
 }
 
-
-// Map Redux state to component props
-function mapStateToProps(state) {
-  return {
-    userInfo: state.userInfo
-  }
-}
-
-// Map Redux actions to component props
-function mapDispatchToProps(dispatch) {
-  return {
-    setChecked: (bool) => dispatch(setOptions('SET_CHECKED', bool)),
-    setAnswered: (bool) => dispatch(setOptions('SET_ANSWERED', bool)),
-    setRegistered: (bool) => dispatch(setOptions('SET_REGISTERED', bool)),
-    setUsername: (username) => dispatch({type: 'SET_USERNAME', payload: username})
-  };
-}
+const mapStateToProps = loginMapState;
+const mapDispatchToProps = loginMapDispatch;
 
 // Connected Component
 const VisibleLogin = connect(
