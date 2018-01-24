@@ -8,7 +8,8 @@ const defaultState = {
   username: null,
   isChecked: false,
   isAnswered: false,
-  isRegistered: false
+  isRegistered: false,
+  isLogin: false
 };
 
 // Redux Reducer, 注意要返回新的state对象
@@ -21,6 +22,8 @@ const userInfo = (state = defaultState, action) => {
       return Object.assign({}, state, {isAnswered: action.payload});
     case 'SET_REGISTERED':
       return Object.assign({}, state, {isRegistered: action.payload});
+    case 'SET_LOGIN':
+      return Object.assign({}, state, {isLogin: action.payload});
     case 'SET_USERNAME':
       return Object.assign({}, state, {username: action.payload});
     default:

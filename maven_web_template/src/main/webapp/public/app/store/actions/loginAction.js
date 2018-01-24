@@ -18,6 +18,7 @@ const loginMapDispatch = function (dispatch) {
     setChecked: (bool) => dispatch(setOptions('SET_CHECKED', bool)),
     setAnswered: (bool) => dispatch(setOptions('SET_ANSWERED', bool)),
     setRegistered: (bool) => dispatch(setOptions('SET_REGISTERED', bool)),
+    setLogin: (bool) => dispatch(setOptions('SET_LOGIN', bool)),
     setUsername: (username) => dispatch({type: 'SET_USERNAME', payload: username})
   };
 };

@@ -16,7 +16,8 @@ class Login extends Component {
     userInfo: PropTypes.object.isRequired,
     setChecked: PropTypes.func.isRequired,
     setAnswered: PropTypes.func.isRequired,
-    setRegistered: PropTypes.func.isRequired
+    setRegistered: PropTypes.func.isRequired,
+    setLogin: PropTypes.func.isRequired
   };
 
   constructor(props) {
@@ -32,7 +33,7 @@ class Login extends Component {
     this.handleLogin = this.handleLogin.bind(this);
 
     // 先验证userInfo是否存在, 若存在则验证其isRegistered是否为true, 并显示对应提示
-    let {userInfo, setChecked, setAnswered, setRegistered} = props;
+    let {userInfo, setChecked, setAnswered, setRegistered, setLogin} = props;
     if (userInfo.isRegistered === true) {
       this.state.prompt = '注册成功,请输入用户名密码以登录';
     }
@@ -40,6 +41,7 @@ class Login extends Component {
     setChecked(false);
     setAnswered(false);
     setRegistered(false);
+    setLogin(false);
   }
 
   // 用户名输入框控制
@@ -68,6 +70,7 @@ class Login extends Component {
     ];
     let username = this.state.username;
     let password = this.state.password;
+    let {setLogin} = this.props;
 
     // 判断用户名密码
     if (username === '') {
@@ -90,7 +93,7 @@ class Login extends Component {
       }).then(
         (data) => {
           if (data.result === 'success') {
-
+            setLogin(true);
           } else {
             this.setState({
               prompt: prompts[2]
