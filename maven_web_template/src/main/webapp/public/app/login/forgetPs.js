@@ -36,9 +36,9 @@ export default class ForgetPs extends Component {
 
   handleCheckUsername(e) {
     const {match, location, history} = this.props;
-
+    // git test
     HttpService.http({
-      url: 'http://localhost:8080/user/checkusername',
+      url: 'http://localhost:8080/user/checkUsername',
       type: 'POST',
       dataType: 'json',
       data: {
